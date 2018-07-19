@@ -175,5 +175,27 @@ namespace CmsShop.Areas.Admin.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public ActionResult ReorderPages(int[] id)
+        {
+
+            using (Db db = new Db())
+            {
+                int count = 1;
+                PageDTO dto;
+
+                foreach (var item in id)
+                {
+                    dto = db.Pages.Find(item);
+                    dto.Sorting = count;
+                    db.SaveChanges();
+                    count++;
+                }
+
+            }
+
+            return View();
+        }
     }
 }
