@@ -161,5 +161,19 @@ namespace CmsShop.Areas.Admin.Controllers
 
             return View(model);
         }
+
+        public ActionResult Delete(int id)
+        {
+
+            using (Db db = new Db())
+            {
+                PageDTO dto = db.Pages.Find(id);
+                db.Pages.Remove(dto);
+                db.SaveChanges();
+            
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }
